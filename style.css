@@ -31,7 +31,6 @@ header {
 
   border: solid thin black;
   margin: 1rem auto;
-
 }
 
 #board > div {
@@ -103,6 +102,14 @@ header {
 
 .tile[data-score='0']:after {
   content: '';
+}
+
+#board .tile[data-score='0'][data-letter]:not(.staged):before {
+  content: attr(data-letter);
+  position: absolute;
+}
+#board .tile[data-score='0'][data-letter]:not(.staged) > input {
+  display: none;
 }
 
 #rack {

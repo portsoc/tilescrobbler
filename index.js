@@ -71,7 +71,7 @@ function resetBag(bagEl) {
     { l: 'X', c: 1,  v: 8 },
     { l: 'Y', c: 2,  v: 4 },
     { l: 'Z', c: 1,  v: 10 },
-    { l: ' ', c: 2,  v: 0 },
+    { l: ' ', c: 200,  v: 0 },
 
   ]
 
@@ -84,9 +84,24 @@ function resetBag(bagEl) {
       tileEl.dataset.score = tileType.v;
       tileEl.textContent = tileType.l;
       tileEl.dataset.letter = tileType.l;
+
+      if (tileType.v === 0) instrumentBlankTile(tileEl);
       bagEl.append(tileEl);
     }
   }
+}
+
+function instrumentBlankTile(tileEl) {
+  const input = document.createElement('input');
+  input.addEventListener('input', () => {
+    // todo change dataset.letter
+    let val = input.value.trim().toLowerCase();
+    if (val.length > 1) val = val.slice(-1);
+    if (val < 'a' || val > 'z') val = '';
+    input.value = val;
+    tileEl.dataset.letter = val;
+  });
+  tileEl.append(input);
 }
 
 function selectTiles(bagEl, n) {
