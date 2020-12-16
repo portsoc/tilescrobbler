@@ -2,6 +2,9 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+
+  /* tile size */
+  --s: 4vmin;
 }
 
 main {
@@ -10,18 +13,25 @@ main {
 }
 
 body {
+  font-family: sans-serif;
   background: var(--bg);
+}
+
+header {
+  text-align: center;
 }
 
 #board {
   background: #c9c3a3;
   display: grid;
-  grid-template-columns: repeat(15, 1fr);
-  grid-template-rows: repeat(15, 1fr);
-  height: 90vmin;
-  width: 90vmin;
+  grid-template-columns: repeat(15, var(--s));
+  grid-template-rows: repeat(15, var(--s));
+  height: calc(15 * var(--s));
+  width: calc(15 * var(--s));
 
   border: solid thin black;
+  margin: 1rem auto;
+
 }
 
 #board > div {
@@ -30,7 +40,7 @@ body {
   padding: 0;
   display: flex;
   flex-direction: column;
-  font-size: 1vmin;
+  font-size: calc(var(--s) / 5.5);
   text-transform: uppercase;
 }
 
@@ -39,15 +49,78 @@ body {
 .ls3 { background: #379BB3; }
 .ls2 { background: #c2D7D5; }
 
-#board > div:after {
+#board > div:before {
   display: block;
-  font-family: sans-serif;
   text-align: center;
   margin: auto;
 }
 
-.ws3:after { content: "triple word score"; }
-.ws2:after { content: "double word score"; }
-.ls3:after { content: "triple letter score"; }
-.ls2:after { content: "double letter score"; }
-.star:after { content: "★"; font-size: 4vmin; }
+.ws3:before { content: "triple word score"; }
+.ws2:before { content: "double word score"; }
+.ls3:before { content: "triple letter score"; }
+.ls2:before { content: "double letter score"; }
+.star:before { content: "★"; font-size: calc(var(--s) * 4 / 6); }
+
+.tile {
+  background: #FFF9DA;
+  border: solid thin black;
+  border-radius: calc(var(--s) / 8);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  text-transform: uppercase;
+  font-size: calc(var(--s) * 4 / 6);
+  line-height: 130%;
+  text-align: center;
+  position: relative;
+}
+
+.tile.staged {
+  border-style: dashed;
+  transform: scale(0.9);
+  z-index: 1;
+}
+
+#board .tile {
+  position: absolute;
+  top: 0; bottom: 0; left: 0; right: 0;
+}
+
+#rack .tile {
+  height: var(--s);
+  width: var(--s);
+}
+
+.tile:after {
+  font-size: calc(var(--s) / 4);
+  content: attr(data-score);
+  position: absolute;
+  bottom: calc(var(--s) / 24);
+  right: calc(var(--s) / 24);
+  display: block;
+  line-height: 1em;
+}
+
+.tile[data-score='0']:after {
+  content: '';
+}
+
+#rack {
+  background: darkgreen;
+  padding: calc(var(--s) / 6) calc(var(--s) / 6) calc(var(--s) / 6);
+  width: calc(var(--s) * 50 / 6);
+
+  border-bottom: calc(var(--s) / 3) solid #0006;
+
+  margin: 1rem auto;
+
+  display: grid;
+  grid-template-columns: repeat(7, var(--s));
+  grid-template-rows: var(--s);
+  grid-gap: calc(var(--s) / 6);
+  position: relative;
+}
+
+#bag {
+  display: none;
+}
