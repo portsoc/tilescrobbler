@@ -1,0 +1,53 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  width: 100vw;
+  margin: 0 auto;
+}
+
+body {
+  background: var(--bg);
+}
+
+#board {
+  background: #c9c3a3;
+  display: grid;
+  grid-template-columns: repeat(15, 1fr);
+  grid-template-rows: repeat(15, 1fr);
+  height: 90vmin;
+  width: 90vmin;
+
+  border: solid thin black;
+}
+
+#board > div {
+  border: solid thin black;
+  position: relative;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  font-size: 1vmin;
+  text-transform: uppercase;
+}
+
+.ws3 { background: #F26855; }
+.ws2 { background: #F6BCAE; }
+.ls3 { background: #379BB3; }
+.ls2 { background: #c2D7D5; }
+
+#board > div:after {
+  display: block;
+  font-family: sans-serif;
+  text-align: center;
+  margin: auto;
+}
+
+.ws3:after { content: "triple word score"; }
+.ws2:after { content: "double word score"; }
+.ls3:after { content: "triple letter score"; }
+.ls2:after { content: "double letter score"; }
+.star:after { content: "★"; font-size: 4vmin; }
