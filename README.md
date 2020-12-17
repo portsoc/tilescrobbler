@@ -23,6 +23,7 @@ Things to do
   - detect if staged tiles form a valid word (or words)
   - choose how much game state server should have
   - add server with game state (stop client allocating tiles)
+  - animate recall by calculating curent xypos, moving tile back to the rack, translating back to its start position adn allowing transform to animate the return.
 
 Done:
   - Build board as grid (#board)

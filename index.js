@@ -71,7 +71,7 @@ function resetBag(bagEl) {
     { l: 'X', c: 1,  v: 8 },
     { l: 'Y', c: 2,  v: 4 },
     { l: 'Z', c: 1,  v: 10 },
-    { l: ' ', c: 200,  v: 0 },
+    { l: ' ', c: 2,  v: 0 },
 
   ]
 
@@ -116,12 +116,29 @@ function selectTiles(bagEl, n) {
 function showUserTiles(rackEl, tiles) {
   rackEl.textContent = '';
   rackEl.append(...tiles);
+  tiles.forEach((tile, index) => { tile.dataset.index = index; });
 }
 
-function shuffleRack(rackEl) {
-  for (let i = 0; i < rackEl.children.length; i+=1) {
-    const index = Math.floor(rnd()*rackEl.children.length);
-    rackEl.append(rackEl.children[index]);
+const shuffleAtRackFront = true;
+
+function shuffleRack() {
+  const positions = [0, 1, 2, 3, 4, 5, 6];
+  const staged = [...el.board.querySelectorAll('.tile.staged')];
+  const onRack = [...el.rack.children];
+
+  if (shuffleAtRackFront) {
+    // put staged tiles notionally at the end of the rack
+    for (const tile of staged) {
+      tile.dataset.index = positions.pop();
+    }
+  } else {
+    onRack.push(...staged);
+  }
+
+  for (const rackTile of onRack) {
+    const i = Math.floor(rnd() * positions.length);
+    rackTile.dataset.index = positions[i];
+    positions.splice(i, 1);
   }
 }
 
@@ -271,28 +288,6 @@ function moveKneadToBoard() {
   }
 }
 
-function init() {
-  for (const element of document.querySelectorAll('[id]')) {
-    el[element.id] = element;
-  }
-
-  makeHTMLGameBoard(el.board);
-  resetBag(el.bag);
-
-  el.shuffle.addEventListener('click', () => shuffleRack(el.rack));
-  el.recall.addEventListener('click', recallStaged);
-
-  const userTiles = selectTiles(el.bag, 7);
-  showUserTiles(el.rack, userTiles);
-
-  prepDrag();
-
-  // testing
-  moveKneadToBoard();
-  scoreStagedTiles();
-}
-
-window.addEventListener('load', init);
 
 
 function draggingOverBoard(e) {
@@ -348,4 +343,28 @@ function prepDrag() {
   }
 }
 
+
+
+function init() {
+  for (const element of document.querySelectorAll('[id]')) {
+    el[element.id] = element;
+  }
+
+  makeHTMLGameBoard(el.board);
+  resetBag(el.bag);
+
+  el.shuffle.addEventListener('click', shuffleRack);
+  el.recall.addEventListener('click', recallStaged);
+
+  const userTiles = selectTiles(el.bag, 7);
+  showUserTiles(el.rack, userTiles);
+
+  prepDrag();
+
+  // testing
+  // moveKneadToBoard();
+  // scoreStagedTiles();
+}
+
+window.addEventListener('load', init);
 

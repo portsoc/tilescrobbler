@@ -104,6 +104,8 @@ header {
   content: '';
 }
 
+
+
 #board .tile[data-score='0'][data-letter]:not(.staged):before {
   content: attr(data-letter);
   position: absolute;
@@ -124,19 +126,33 @@ header {
 
 #rack {
   background: darkgreen;
-  padding: calc(var(--s) / 6) calc(var(--s) / 6) calc(var(--s) / 6);
+  border-radius: calc(var(--s) / 6);
   width: calc(var(--s) * 50 / 6);
+  height: calc(var(--s) * 8.5 / 6);
 
   border-bottom: calc(var(--s) / 3) solid #0006;
 
   margin: 1rem auto;
 
-  display: grid;
-  grid-template-columns: repeat(7, var(--s));
-  grid-template-rows: var(--s);
-  grid-gap: calc(var(--s) / 6);
   position: relative;
 }
+
+#rack .tile {
+  position: absolute;
+  left: calc(var(--s) / 6);
+  top: calc(var(--s) / 6);
+}
+
+
+#rack .tile[data-index='0'] { transform: translateX(calc(var(--s) * 0 / 6)); }
+#rack .tile[data-index='1'] { transform: translateX(calc(var(--s) * 7 / 6)); }
+#rack .tile[data-index='2'] { transform: translateX(calc(var(--s) * 14 / 6)); }
+#rack .tile[data-index='3'] { transform: translateX(calc(var(--s) * 21 / 6)); }
+#rack .tile[data-index='4'] { transform: translateX(calc(var(--s) * 28 / 6)); }
+#rack .tile[data-index='5'] { transform: translateX(calc(var(--s) * 35 / 6)); }
+#rack .tile[data-index='6'] { transform: translateX(calc(var(--s) * 42 / 6)); }
+
+
 
 #bag {
   display: none;
