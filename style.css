@@ -189,8 +189,63 @@ header h1 {
 #rack .tile[data-index='5'] { transform: translateX(calc(var(--s) * 35 / 6)); }
 #rack .tile[data-index='6'] { transform: translateX(calc(var(--s) * 42 / 6)); }
 
-
-
 #bag {
   display: none;
 }
+
+button {
+  background: var(--header-bg);
+  color: var(--header-fg);
+  font-family: 'Roboto Slab', serif;
+  border: var(--header-fg) thin solid;
+  border-radius: calc(var(--s)/8);
+  padding: 0.125rem 0.5rem;
+  flex-direction: column;
+  text-transform: uppercase;
+  font-size: calc(var(--s) * 4 / 8);
+  line-height: 200%;
+  text-align: center;
+  position: relative;
+  display: grid;
+  place-content: center;
+
+}
+
+nav {
+  margin: auto;
+  max-width: calc(var(--s) * 15);
+  display: grid;
+  grid-template-columns: 5fr 2fr 3fr 2fr 5fr;
+  grid-template-rows: 1fr 1fr;
+  gap: calc(var(--s) * 0.2);
+  grid-template-areas:
+    "gamescore swap play shuffle movescore"
+    "gamescore pass play recall movescore";
+}
+
+nav #commit { grid-area: play; }
+nav #movescore { grid-area: movescore; }
+nav #gamescore { grid-area: gamescore; }
+nav #shuffle { grid-area: shuffle; }
+nav #recall { grid-area: recall; }
+nav #pass { grid-area: pass; }
+nav #swap { grid-area: swap; }
+
+nav #gamescore,
+nav #movescore {
+  background: var(--grn);
+  color: var(--header-fg);
+  font-family: 'Roboto Slab', serif;
+  border: var(--header-fg) thin solid;
+  border-radius: calc(var(--s)/8);
+  padding: 0.125rem 0.5rem;
+  flex-direction: column;
+  text-transform: uppercase;
+  line-height: 200%;
+  text-align: center;
+  position: relative;
+  display: grid;
+  place-content: center;
+
+}
+

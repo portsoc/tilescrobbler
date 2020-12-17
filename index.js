@@ -267,7 +267,7 @@ function scoreStagedTiles() {
 
 function reportScore(score) {
   if (score === 0) {
-    el.theScore.textContent = 'none';
+    el.theScore.textContent = 0;
   } else {
     el.theScore.textContent = score;
   }
