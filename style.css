@@ -18,7 +18,7 @@
   --tile-bg: #FFF9DA;
   --header-bg: var(--red);
   --header-fg: white;
-
+  --body-bg: linear-gradient(var(--bg), var(--ltgrn));
 }
 
 * {
@@ -37,7 +37,7 @@ main {
 
 body {
   font-family: sans-serif;
-  background: linear-gradient(var(--bg), var(--ltgrn));
+  background: var(--body-bg);
   height: 100vh;
 }
 
