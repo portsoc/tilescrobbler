@@ -1,25 +1,29 @@
 export function init(boardEl, rackEl) {
-  document.body.addEventListener('dragover', draggingOverBoard);
+  // set up event listeners for all relevant drag events
+  document.body.addEventListener('dragover', checkIfDropAllowed);
   boardEl.addEventListener('drop', dropTileOnBoard);
-  document.body.addEventListener('drop', dropTileOnBg);
+  document.body.addEventListener('drop', dropTileOutsideBoard);
 
   const tiles = document.querySelectorAll('.tile');
-  // console.log('found ', tiles);
   for (const tile of tiles) {
-    tile.addEventListener('drag', dragTileStart);
+    tile.addEventListener('dragstart', dragTileStart);
+    tile.addEventListener('dragend', dragTileEnd);
     tile.draggable = true;
   }
 
-  function dropTileOnBg(e) {
-    e.preventDefault();
-    const dragged = document.querySelector('[data-draggingnow=true]');
-    dragged.dataset.draggingnow = false;
-    dragged.classList.remove('staged');
-    rackEl.append(dragged);
+  // the following functions are defined inside init() so they have access to boardEl, rackEl
+
+  // note the tile that's being dragged
+  function dragTileStart(e) {
+    e.target.dataset.draggingnow = 'true';
   }
 
-  function draggingOverBoard(e) {
-    // if theres not a tile there already it can be dropped on
+  function dragTileEnd(e) {
+    delete e.target.dataset.draggingnow;
+  }
+
+  function checkIfDropAllowed(e) {
+    // the only place we cannot drop tiles is on other tiles
     if (!e.target.classList.contains('tile')) {
       e.preventDefault();
     }
@@ -27,16 +31,19 @@ export function init(boardEl, rackEl) {
 
   function dropTileOnBoard(e) {
     e.preventDefault();
+
+    // don't send the drop event outside the board, i.e. to the parent DOM element
     e.stopPropagation();
+
     const dragged = document.querySelector('[data-draggingnow=true]');
-    dragged.dataset.draggingnow = false;
     dragged.classList.add('staged');
     e.target.append(dragged);
   }
 
-
-  function dragTileStart(e) {
-    console.log('dragging');
-    e.target.dataset.draggingnow = true;
+  function dropTileOutsideBoard(e) {
+    e.preventDefault();
+    const dragged = document.querySelector('[data-draggingnow=true]');
+    dragged.classList.remove('staged');
+    rackEl.append(dragged);
   }
 }
