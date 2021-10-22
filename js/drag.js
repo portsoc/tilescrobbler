@@ -24,9 +24,14 @@ export function init(boardEl, rackEl) {
 
   function checkIfDropAllowed(e) {
     // the only place we cannot drop tiles is on other tiles
-    if (!e.target.classList.contains('tile')) {
+    if (!e.target.classList.contains('tile') || containsTile(e.target)) {
       e.preventDefault();
     }
+  }
+
+  // TODO this check doesn't quite work
+  function containsTile(el) {
+    return el.querySelector('.tile') != null;
   }
 
   function dropTileOnBoard(e) {
