@@ -2,20 +2,20 @@
 
 :root {
   --bg: #666;
-  --grn: #002F0F;
-  --ltgrn: #335F3F;
-  --red: #C90808;
-  --tray: #668F6F;
-  --blank: #66A;
-  --shadow: rgba(0,0,0,0.25);
-  --ws3: #F26855;
-  --ws2: #F6BCAE;
-  --ls3: #379BB3;
-  --ls2: #c2D7D5;
+  --grn: #002f0f;
+  --ltgrn: #335f3f;
+  --red: #c90808;
+  --tray: #668f6f;
+  --blank: #66a;
+  --shadow: rgba(0, 0, 0, 0.25);
+  --ws3: #f26855;
+  --ws2: #f6bcae;
+  --ls3: #379bb3;
+  --ls2: #c2d7d5;
   --board-bg: #c9c3a3;
   --board-border: black;
   --tile-border: black;
-  --tile-bg: #FFF9DA;
+  --tile-bg: #fff9da;
   --header-bg: var(--red);
   --header-fg: white;
   --body-bg: linear-gradient(var(--bg), var(--ltgrn));
@@ -62,7 +62,6 @@ header h1 {
   grid-template-rows: repeat(15, var(--s));
   height: calc(15 * var(--s));
   width: calc(15 * var(--s));
-
   margin: 1rem auto;
 }
 
@@ -81,18 +80,21 @@ header h1 {
 .ls3 { background: var(--ls3); }
 .ls2 { background: var(--ls2); }
 
-
-#board > div:before {
+#board > div::before {
   display: block;
   text-align: center;
   margin: auto;
 }
 
-.ws3:before { content: "triple word score"; }
-.ws2:before { content: "double word score"; }
-.ls3:before { content: "triple letter score"; }
-.ls2:before { content: "double letter score"; }
-.star:before { content: "★"; font-size: calc(var(--s) * 4 / 6); }
+.ws3::before { content: "triple word score"; }
+.ws2::before { content: "double word score"; }
+.ls3::before { content: "triple letter score"; }
+.ls2::before { content: "double letter score"; }
+
+.star::before {
+  content: "★";
+  font-size: calc(var(--s) * 4 / 6);
+}
 
 .tile {
   background: var(--tile-bg);
@@ -116,17 +118,13 @@ header h1 {
 
 #board .tile {
   position: absolute;
-  top: 0; bottom: 0; left: 0; right: 0;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
-#rack .tile {
-  transition: all 0.5s ease-in-out;
-  display: inline-block;
-  height: var(--s);
-  width: var(--s);
-}
-
-.tile:after {
+.tile::after {
   font-size: calc(var(--s) / 4);
   content: attr(data-score);
   position: absolute;
@@ -136,18 +134,8 @@ header h1 {
   line-height: 1em;
 }
 
-.tile[data-score='0']:after {
+.tile[data-score='0']::after {
   content: '';
-}
-
-
-
-#board .tile[data-score='0'][data-letter]:not(.staged):before {
-  content: attr(data-letter);
-  position: absolute;
-}
-#board .tile[data-score='0'][data-letter]:not(.staged) > input {
-  display: none;
 }
 
 .tile[data-score='0'] > input {
@@ -158,6 +146,15 @@ header h1 {
   color: var(--blank);
   text-transform: uppercase;
   font-size: calc(var(--s) * 4 / 6);
+}
+
+#board .tile[data-score='0'][data-letter]:not(.staged)::before {
+  content: attr(data-letter);
+  position: absolute;
+}
+
+#board .tile[data-score='0'][data-letter]:not(.staged) > input {
+  display: none;
 }
 
 #rack {
@@ -171,13 +168,17 @@ header h1 {
 }
 
 #rack .tile {
+  transition: all 0.5s ease-in-out;
+  display: inline-block;
+  height: var(--s);
+  width: var(--s);
   position: absolute;
   left: calc(var(--s) / 6);
   top: calc(var(--s) / 6);
 }
 
-
-#board, #rack {
+#board,
+#rack {
   box-shadow: 0 0.5rem 1rem var(--shadow);
 }
 
@@ -198,7 +199,7 @@ button {
   color: var(--header-fg);
   font-family: 'Roboto Slab', serif;
   border: var(--header-fg) thin solid;
-  border-radius: calc(var(--s)/8);
+  border-radius: calc(var(--s) / 8);
   padding: 0.125rem 0.5rem;
   flex-direction: column;
   text-transform: uppercase;
@@ -208,7 +209,6 @@ button {
   position: relative;
   display: grid;
   place-content: center;
-
 }
 
 nav {
@@ -237,7 +237,7 @@ nav #movescore {
   color: var(--header-fg);
   font-family: 'Roboto Slab', serif;
   border: var(--header-fg) thin solid;
-  border-radius: calc(var(--s)/8);
+  border-radius: calc(var(--s) / 8);
   padding: 0.125rem 0.5rem;
   flex-direction: column;
   text-transform: uppercase;
@@ -246,6 +246,4 @@ nav #movescore {
   position: relative;
   display: grid;
   place-content: center;
-
 }
-
