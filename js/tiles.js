@@ -57,7 +57,6 @@ export function resetBag(bagEl) {
     { l: 'Y', c: 2, v: 4 },
     { l: 'Z', c: 1, v: 10 },
     { l: ' ', c: 2, v: 0 },
-
   ];
 
   document.querySelectorAll('.tile').forEach(el => el.remove());
