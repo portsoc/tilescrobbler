@@ -1,4 +1,4 @@
-import rnd from './mulberry32.js';
+import rnd from './lib/mulberry32.js';
 
 function instrumentBlankTile(tileEl) {
   const input = document.createElement('input');
